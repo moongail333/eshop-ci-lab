@@ -34,6 +34,7 @@ public class Stage03
         using var s=new Stand();var page=s.Page();await page.OnPost(new CatalogItemViewModel{Id=1});
         await page.OnPostUpdate(new[]{new BasketItemViewModel{Id=page.BasketModel.Items.Single().Id,Quantity=4}});
         s.Reopen();page=s.Page();await page.OnGet();Assert.Equal(34.00m,page.BasketModel.Total());
+        Assert.Equal(4, Assert.Single(page.BasketModel.Items).Quantity);
     }
     [Fact] public async Task S04_PageZeroQuantityRemovesItem()
     {
